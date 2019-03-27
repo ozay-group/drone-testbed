@@ -1,6 +1,6 @@
 
 #
-#  Crazyflie University of Michigan
+#  Copyright -  University of Michigan
 #
 
 
