@@ -1,4 +1,4 @@
-#  Copyright (C) Univesity of Michigan, Ann Arbor
+#  Copyright © 2019 The Regents of the University of Michigan
 
 
 import math
