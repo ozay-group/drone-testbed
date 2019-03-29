@@ -1,5 +1,5 @@
 #
-#  Copyright -  University of Michigan
+#  Copyright © 2019 The Regents of the University of Michigan
 #
 
 
