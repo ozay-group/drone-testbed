@@ -1,5 +1,5 @@
 
-#  Copyright (C) University of Michigan, Ann Arbor
+#  Copyright © 2019 The Regents of the University of Michigan
 #
 
 
