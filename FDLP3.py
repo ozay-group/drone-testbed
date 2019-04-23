@@ -34,8 +34,10 @@ from cflib.crazyflie.syncLogger import SyncLogger
 
 # Change uris according to your setup
 URI0 = 'radio://0/80/2M/E7E7E7E7E8'
-URI1 = 'radio://0/80/2M/E7E7E7E7EC'
-URI2 = 'radio://0/80/2M/E7E7E7E7EB'
+URI1 = 'radio://0/80/2M/E7E7E7E7EB'
+# URI0 = 'radio://0/80/2M/E7E7E7E7E9'
+# URI1 = 'radio://0/80/2M/E7E7E7E7EA'
+URI2 = 'radio://0/80/2M/E7E7E7E7EC'
 
 #drone height parameters, h being the beginning height before consensus
 params0 = {'base': 0.2, 'h': 1.0, 'num': 0}
@@ -72,7 +74,6 @@ def reset_estimator(scf):
     time.sleep(2)
 
 
-
 def poshold(cf, t, z):
 
     steps = t * 10
@@ -88,31 +89,32 @@ def consensus(currentPosition, algNum):
     faultArray[2].append(currentPosition[2])
 
     if len(currentPosition) == 3 and algNum == 1:
-        #print('Pivot1')
+        # print('Pivot1')
         nextPos[0] = 0.5*(currentPosition[0] + currentPosition[1])
         nextPos[1] = 0.5*(currentPosition[0] + currentPosition[1])
         nextPos[2] = currentPosition[2]
 
     elif len(currentPosition) == 3 and algNum == 2:
-        #print('Pivot2')
+        # print('Pivot2')
         nextPos[0] = currentPosition[0]
         nextPos[1] = 0.5*(currentPosition[1] + currentPosition[2])
         nextPos[2] = 0.5*(currentPosition[1] + currentPosition[2])
 
     elif len(currentPosition) == 3 and algNum == 3:
-        #print('FaultyPivot1')
+        # print('FaultyPivot1')
         nextPos[0] = 0.5*(currentPosition[0] + currentPosition[1])
         nextPos[1] = 0.5*(currentPosition[0] + currentPosition[1]) + 0.2
         nextPos[2] = currentPosition[2] - 0.2
 
     elif len(currentPosition) == 3 and algNum == 4:
-        #print('FaultyPivot2')
+        # print('FaultyPivot2')
         nextPos[0] = currentPosition[0] - 0.2
         nextPos[1] = 0.5*(currentPosition[1] + currentPosition[2]) + 0.2
         nextPos[2] = 0.5*(currentPosition[1] + currentPosition[2])
 
 def faultDetect(arr):
     #print('detecting')
+    global safeLand
 
     y0 = []
     y1 = []
@@ -198,8 +200,8 @@ def faultDetect(arr):
     #print("objective=", value(prob.objective))
     if (LpStatus[prob.status] == 'Infeasible'):
         safeLand = 1
-        print('FAULT DETECTED')
-        print('safeLand(a) is', safeLand)
+        print('FAULT DETECTED -- LANDING IMMEDIATELY')
+        #print('safeLand(a) is', safeLand)
     else:
         print('No fault detected')
         safeLand = 0
@@ -265,7 +267,7 @@ def run_sequence(scf, params):
                         if len(faultArray[0]) >= 4:
                             # safeLand = faultDetect(faultArray)
                             faultDetect(faultArray)
-                            print('safeLand(b) is', safeLand)
+                            #print('safeLand(b) is', safeLand)
                             # print('safeLand is', safeLand)
                         # switch pivot drone every time consensus is run
                         if algNum == 1:
@@ -306,11 +308,12 @@ def run_sequence(scf, params):
                 break
 
     # Base altitude in meters
-
-    if safeLand == 1:
-        print('FAULT DETECTED -- LANDING IMMEDIATELY')
-    else:
+    if num == 0:
         print('Landing')
+        # if safeLand == 1:
+        #     print('FAULT DETECTED -- LANDING IMMEDIATELY')
+        # else:
+        #     print('Landing')
 
     #sends drones to base height
     poshold(cf, 2, base)
