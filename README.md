@@ -28,3 +28,5 @@ swarmSequence.py - An attempt to fly multiple drones with LPS (not successful)
 
 faultdetectionLP: An LP based fault detection in drones with switching topology. Though we were able to get a few experiments running, most of the times, the drones crashed. One reason may be the fact that PulP requires an old version of Python to run and we were using command "sudo python" instead of "sudo python3".
 
+FDLP3: Working version of faultdetectionLP for three drones. Appears to accurately detect faults, having difficulty getting drones to force land, possibly a variable scope issue.
+
