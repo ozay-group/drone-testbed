@@ -42,3 +42,12 @@ fd_five_old: An LP based fault detection in drones with switching topology. Thou
 consensus_saveheight_old.py - Initial implementation of the 3 drone simple consensus algorithm. Saves a log of the heights to testing1, testing 2, and testing3.csv
 
 avg_consensus_three_cf_initial.py - initial attempt to running the 3 drone simple consensus algorithm - without logging the height.
+
+## Contributors
+Supratim Ghosh, supragh@umich.edu 
+
+Eric Gilkey, etgilk@umich.edu 
+
+## Acknowledgments
+This work is supported in part by a NASA Early Career Faculty Award.
+
