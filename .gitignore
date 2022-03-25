@@ -3,3 +3,6 @@
 
 # Ignore all  temporary files that Mac OS X creates
 *.DS_Store
+
+# Ignore personal virtual environment files
+**/kwesis_venv/*
